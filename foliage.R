@@ -4,6 +4,7 @@ library(magick)
 library(tidyverse) # NOTE: Needs github version of ggplot2
 
 root <- find_rstudio_root_file()
+dir.create("data", showWarnings = FALSE)
 
 # "borrow" the files from SmokyMountains.com, but be nice and cache them to
 # avoid hitting their web server for every iteration
@@ -53,7 +54,10 @@ gather(foliage_sf, week, value, -id, -geometry) %>%
                                          as.Date("2017-11-11"), "1 week"),
                                      "%b %d"))) -> foliage_sf
 
-# now we make a ggplot object for each week and save it out to a png
+# now we start the graphics device
+frames <- image_graph(width = 1500, height = 900, res = 300)
+
+# make a ggplot object for each week and print the graphic
 pb <- progress_estimated(nlevels(foliage_sf$week))
 walk(1:nlevels(foliage_sf$week), ~{
 
@@ -76,12 +80,9 @@ walk(1:nlevels(foliage_sf$week), ~{
     theme(panel.grid.major=element_line(color="#00000000")) +
     theme(legend.position="right") -> gg
 
-  ggsave(sprintf("%02d.png", .x), gg, width=8, height=6)
+  print(gg)
 
 })
 
-# we read them all back in and animate the foliage
-sprintf("%02d.png", 1:nlevels(foliage_sf$week)) %>%
-  map(image_read) %>%
-  image_join() %>%
-  image_animate(1)
+# animate the foliage
+image_animate(frames, 1)
