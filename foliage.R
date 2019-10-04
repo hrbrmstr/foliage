@@ -29,7 +29,6 @@ st_crs(states_sf) <- 4326
 # I ran into hiccups using coord_sf() to do this, so we convert it to Albers here
 states_sf <- st_transform(states_sf, 5070)
 
-
 # next we read in the states
 counties_sf <- read_sf(file.path(root, "data", "us.json"), "counties", stringsAsFactors = FALSE)
 st_crs(counties_sf) <- 4326
@@ -71,14 +70,15 @@ walk(1:nlevels(foliage_sf$week), ~{
     viridis::scale_fill_viridis(
       name=NULL,
       discrete = TRUE,
-      labels=c("No Change", "Minimal", "Patchy", "Partial", "Near Peak", "Peak", "Past Peak"),
-      drop=FALSE
+      labels = c("No Change", "Minimal", "Patchy", "Partial",
+                 "Near Peak", "Peak", "Past Peak"),
+      drop = FALSE
     ) +
     labs(title=sprintf("Foliage: %s ", unique(xdf$week))) +
     ggthemes::theme_map() +
-    theme(panel.grid=element_line(color="#00000000")) +
-    theme(panel.grid.major=element_line(color="#00000000")) +
-    theme(legend.position="right") -> gg
+    theme(panel.grid = element_line(color = "#00000000")) +
+    theme(panel.grid.major = element_line(color = "#00000000")) +
+    theme(legend.position = "right") -> gg
 
   print(gg)
 

@@ -28,7 +28,6 @@ st_crs(states_sf) <- 4326
 # I ran into hiccups using coord_sf() to do this, so we convert it to Albers here
 states_sf <- st_transform(states_sf, 5070)
 
-
 # next we read in the states
 counties_sf <- read_sf(file.path(root, "data", "us.min.json"), "counties", stringsAsFactors = FALSE)
 st_crs(counties_sf) <- 4326
@@ -54,8 +53,8 @@ gather(foliage_sf, week, value, -id, -geometry) %>%
   filter(week != "rate1") %>%
   mutate(week = factor(week,
                        levels=unique(week),
-                       labels=format(seq(as.Date("2017-08-26"),
-                                         as.Date("2017-11-11"), "1 week"),
+                       labels=format(seq(as.Date("2019-09-08"),
+                                         as.Date("2019-11-30"), "1 week"),
                                      "%b %d"))) -> foliage_sf
 
 # now we make a ggplot object for each week and save it out to a png
@@ -91,4 +90,4 @@ walk(1:nlevels(foliage_sf$week), ~{
 })
 
 # animate the foliage
-image_animate(frames, 1)
+image_animate(frames, 1) %>% image_write("~/Desktop/f.gif")
