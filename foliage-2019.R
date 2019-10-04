@@ -59,6 +59,9 @@ gather(foliage_sf, week, value, -id, -geometry) %>%
                                      "%b %d"))) -> foliage_sf
 
 # now we make a ggplot object for each week and save it out to a png
+frames <- image_graph(width = 1500, height = 900, res = 300)
+
+# make a ggplot object for each week and print the graphic
 pb <- progress_estimated(nlevels(foliage_sf$week))
 walk(1:nlevels(foliage_sf$week), ~{
 
@@ -68,9 +71,10 @@ walk(1:nlevels(foliage_sf$week), ~{
 
   ggplot() +
     geom_sf(data=xdf, aes(fill=value), size=0.05, color="#2b2b2b") +
-    geom_sf(data=states_sf, color="white", size=0.125, fill=NA) +
+    geom_sf(data=states_sf, color="white", size=0.25, fill=NA) +
     viridis::scale_fill_viridis(
       name=NULL,
+      option = "magma",
       discrete = TRUE,
       labels=c("No Change", "Minimal", "Patchy", "Partial", "Near Peak", "Peak", "Past Peak"),
       drop=FALSE
@@ -81,12 +85,9 @@ walk(1:nlevels(foliage_sf$week), ~{
     theme(panel.grid.major=element_line(color="#00000000")) +
     theme(legend.position="right") -> gg
 
-  ggsave(sprintf("%02d.png", .x), gg, width=5, height=3)
+  print(gg)
 
 })
 
-# we read them all back in and animate the foliage
-sprintf("%02d.png", 1:nlevels(foliage_sf$week)) %>%
-  map(image_read) %>%
-  image_join() %>%
-  image_animate(1)
+# animate the foliage
+image_animate(frames, 1)
