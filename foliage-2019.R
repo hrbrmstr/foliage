@@ -75,6 +75,7 @@ walk(1:nlevels(foliage_sf$week), ~{
     viridis::scale_fill_viridis(
       name=NULL,
       option = "magma",
+      direction = -1,
       discrete = TRUE,
       labels=c("No Change", "Minimal", "Patchy", "Partial", "Near Peak", "Peak", "Past Peak"),
       drop=FALSE
