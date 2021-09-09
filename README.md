@@ -1,3 +1,1 @@
-2017 & 2019 & 2021 foliage gif making
-
-![](foliage.gif)
+# 2017 & 2019 & 2021 foliage gif making
