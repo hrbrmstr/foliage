@@ -10,7 +10,7 @@ root <- find_rstudio_root_file()
 
 c("https://s3.amazonaws.com/smc0m-tech-stor/static/js/us.min.json",
   "https://smokymountains.com/wp-content/themes/smcom-2017/js/foliage2.tsv",
-  "https://cdn.smokymountains.com/static/maps/rendered2022.csv") %>%
+  "https://cdn.smokymountains.com/static/maps/rendered2022.csv") |> 
   walk(~{
     sav_tmp <- file.path(root, "data", basename(.x))
     if (!file.exists(sav_tmp)) download.file(.x, sav_tmp)
@@ -45,7 +45,7 @@ colnames(foliage) <- c("id", sprintf("rate%d", 1:13))
 
 # and, since we have a lovely sf tidy data frame, bind it together
 counties_sf |> 
-  left_join(foliage, "id") %>%
+  left_join(foliage, "id") |> 
   filter(!is.na(rate1)) -> foliage_sf
 
 # now, we do some munging so we have better labels and so we can
@@ -56,13 +56,13 @@ gather(
   value, 
   -id, 
   -geometry
-) %>%
+) |> 
   mutate(
     value = factor(value)
-  ) %>%
+  ) |> 
   filter(
     week != "rate1"
-  ) %>%
+  ) |> 
   mutate(
     week = factor(
       week,
@@ -129,5 +129,5 @@ walk(1:nlevels(foliage_sf$week), ~{
 
 # animate the foliage
 frames |> 
-  image_animate(1) %>%
+  image_animate(1) |> 
   image_write("foliage.gif")
