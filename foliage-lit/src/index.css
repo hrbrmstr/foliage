@@ -1,0 +1,25 @@
+:root {
+
+  color-scheme: dark light;
+  
+  --color-bg: white;
+  --color-fg: black;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-fg);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: black;
+    --color-fg: white;
+  }
+}

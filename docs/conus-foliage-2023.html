@@ -18,7 +18,7 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */
   vertical-align: middle;
 }
 /* CSS for syntax highlighting */
@@ -95,11 +95,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
              <p>hrbrmstr </p>
           </div>
   </div>
-    
-  
-    
+
+
+
   </div>
-  
+
 
 
 </header>
@@ -253,7 +253,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </main>
 <!-- /main column -->
 <script type="ojs-module-contents">
-{"contents":[{"methodName":"interpret","cellName":"ojs-cell-1","inline":false,"source":"viewof foliageWeek = Scrubber([...new Set(foliage2023.map((d) => d.week))], {\n  autoplay: false,\n  delay: 300\n})\n"},{"methodName":"interpret","cellName":"ojs-cell-2","inline":false,"source":"conusFoliage = Plot.plot({\n  projection: \"albers-usa\",\n  width,\n  color: {\n    legend: true,\n    domain: [\n      \"No Change\",\n      \"Minimal\",\n      \"Patchy\",\n      \"Partial\",\n      \"Near Peak\",\n      \"Peak\",\n      \"Past Peak\"\n    ],\n    range: [\n      \"#8d3d28\",\n      \"#ae3130\",\n      \"#dc4d33\",\n      \"#e89150\",\n      \"#f6ce6f\",\n      \"#fbf6bb\",\n      \"#8ba780\"\n    ],\n    label: \"Foliage Levels\",\n    reverse: true\n  },\n  marks: [\n    Plot.geo(counties48, {\n      stroke: \"white\",\n      strokeWidth: 1 / 4,\n      strokeOpacity: 1 / 2,\n      title: (d) => d.id,\n      fill: (d) => {\n        const cty = f23.get(d.id);\n        const val = cty === undefined ? \"No Change\" : cty.value;\n        console.log(val);\n        return val;\n      }\n    }),\n    Plot.geo(states48, {\n      stroke: \"white\",\n      strokeWidth: 3 / 2,\n      strokeOpacity: 1 / 2\n    })\n  ]\n})\n"},{"methodName":"interpret","cellName":"ojs-cell-3","inline":false,"source":"f23 = new Map(\n  foliage2023.filter((d) => d.week == foliageWeek).map((e) => [e.id, e])\n)\n"},{"methodName":"interpret","cellName":"ojs-cell-4","inline":false,"source":"foliage2023 = FileAttachment(\"foliage-2023.json\").json()\n"},{"methodName":"interpret","cellName":"ojs-cell-5","inline":false,"source":"counties48 = ({\n  type: \"FeatureCollection\",\n  features: counties.features.filter(\n    (d) => ![\"15\", \"02\"].includes(d.id.substring(0, 2))\n  )\n})\n\nstates48 = ({\n  type: \"FeatureCollection\",\n  features: states.features.filter((d) => ![\"15\", \"02\"].includes(d.id))\n})\n"},{"methodName":"interpret","cellName":"ojs-cell-6","inline":false,"source":"counties = topojson.feature(us, us.objects.counties)\nstates = topojson.feature(us, us.objects.states)\n"},{"methodName":"interpret","cellName":"ojs-cell-7","inline":false,"source":"import {us} from \"@observablehq/us-geographic-data\"\nimport { Scrubber } from \"@mbostock/scrubber\"\n"},{"methodName":"interpretQuiet","source":"shinyInput('foliageWeek')"}]}
+{"contents":[{"methodName":"interpret","cellName":"ojs-cell-1","inline":false,"source":"viewof foliageWeek = Scrubber([...new Set(foliage2023.map((d) => d.week))], {\n  autoplay: false,\n  delay: 300\n})\n"},{"methodName":"interpret","cellName":"ojs-cell-2","inline":false,"source":"conusFoliage = Plot.plot({\n  projection: \"albers-usa\",\n  width,\n  color: {\n    legend: true,\n    domain: [\n      \"No Change\",\n      \"Minimal\",\n      \"Patchy\",\n      \"Partial\",\n      \"Near Peak\",\n      \"Peak\",\n      \"Past Peak\"\n    ],\n    range: [\n      \"#8d3d28\",\n      \"#ae3130\",\n      \"#dc4d33\",\n      \"#e89150\",\n      \"#f6ce6f\",\n      \"#fbf6bb\",\n      \"#8ba780\"\n    ],\n    label: \"Foliage Levels\",\n    reverse: true\n  },\n  marks: [\n    Plot.geo(counties48, {\n      stroke: \"white\",\n      strokeWidth: 1 / 4,\n      strokeOpacity: 1 / 2,\n      title: (d) => d.id,\n      fill: (d) => {\n        const cty = f23.get(d.id);\n        const val = cty === undefined ? \"No Change\" : cty.value;\n        \n        return val;\n      }\n    }),\n    Plot.geo(states48, {\n      stroke: \"white\",\n      strokeWidth: 3 / 2,\n      strokeOpacity: 1 / 2\n    })\n  ]\n})\n"},{"methodName":"interpret","cellName":"ojs-cell-3","inline":false,"source":"f23 = new Map(\n  foliage2023.filter((d) => d.week == foliageWeek).map((e) => [e.id, e])\n)\n"},{"methodName":"interpret","cellName":"ojs-cell-4","inline":false,"source":"foliage2023 = FileAttachment(\"foliage-2023.json\").json()\n"},{"methodName":"interpret","cellName":"ojs-cell-5","inline":false,"source":"counties48 = ({\n  type: \"FeatureCollection\",\n  features: counties.features.filter(\n    (d) => ![\"15\", \"02\"].includes(d.id.substring(0, 2))\n  )\n})\n\nstates48 = ({\n  type: \"FeatureCollection\",\n  features: states.features.filter((d) => ![\"15\", \"02\"].includes(d.id))\n})\n"},{"methodName":"interpret","cellName":"ojs-cell-6","inline":false,"source":"counties = topojson.feature(us, us.objects.counties)\nstates = topojson.feature(us, us.objects.states)\n"},{"methodName":"interpret","cellName":"ojs-cell-7","inline":false,"source":"import {us} from \"@observablehq/us-geographic-data\"\nimport { Scrubber } from \"@mbostock/scrubber\"\n"},{"methodName":"interpretQuiet","source":"shinyInput('foliageWeek')"}]}
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
@@ -282,7 +282,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       toggleBodyColorMode(bsSheetEl);
     }
   }
-  toggleBodyColorPrimary();  
+  toggleBodyColorPrimary();
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -292,7 +292,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
+      if (clz.startsWith('code-annotation-')) {
         return true;
       }
     }
@@ -323,11 +323,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       button.setAttribute("data-bs-toggle", "tooltip");
       button.setAttribute("data-bs-placement", "left");
       button.setAttribute("data-bs-title", "Copied!");
-      tooltip = new bootstrap.Tooltip(button, 
-        { trigger: "manual", 
+      tooltip = new bootstrap.Tooltip(button,
+        { trigger: "manual",
           customClass: "code-copy-button-tooltip",
           offset: [0, -8]});
-      tooltip.show();    
+      tooltip.show();
     }
     setTimeout(function() {
       if (tooltip) {
@@ -365,7 +365,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     if (onUntriggerFn) {
       config.onUntrigger = onUntriggerFn;
     }
-    window.tippy(el, config); 
+    window.tippy(el, config);
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
   for (var i=0; i<noterefs.length; i++) {
@@ -416,7 +416,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     tippyHover(xref, undefined, function(instance) {
       instance.disable();
       let url = xref.getAttribute('href');
-      let hash = undefined; 
+      let hash = undefined;
       if (url.startsWith('#')) {
         hash = url;
       } else {
@@ -444,7 +444,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             if (note !== null) {
               const html = processXRef(id, note);
               instance.setContent(html);
-            } 
+            }
           }).finally(() => {
             instance.enable();
             instance.show();
@@ -485,7 +485,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             height = bottom - top;
           }
           if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
+            // cook up a div (if necessary) and position it
             let div = window.document.getElementById("code-annotation-line-highlight");
             if (div === null) {
               div = window.document.createElement("div");
@@ -525,7 +525,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     window.addEventListener(
       "resize",
       throttle(() => {
-        console.log("RESIZE");
         elRect = undefined;
         if (selectedAnnoteEl) {
           selectCodeLines(selectedAnnoteEl);

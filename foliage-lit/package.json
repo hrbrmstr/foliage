@@ -1,0 +1,21 @@
+{
+  "name": "foliage-lit",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@observablehq/plot": "^0.6.10",
+    "lit": "^2.7.6",
+    "tachyons": "^4.12.0",
+    "topojson": "^3.0.2",
+    "us-atlas": "^3.0.1"
+  },
+  "devDependencies": {
+    "vite": "^4.4.5"
+  }
+}

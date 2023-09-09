@@ -49,7 +49,6 @@ conusFoliage = Plot.plot({
       fill: (d) => {
         const cty = f23.get(d.id);
         const val = cty === undefined ? "No Change" : cty.value;
-        console.log(val);
         return val;
       }
     }),
