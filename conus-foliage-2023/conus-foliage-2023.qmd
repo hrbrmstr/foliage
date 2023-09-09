@@ -1,0 +1,97 @@
+---
+title: 'ConUS Foliage 2023'
+author: "hrbrmstr"
+format: html
+echo: false
+observable: "https://observablehq.com/@hrbrmstr/conus-foliage-2023"
+---
+
+```{ojs}
+viewof foliageWeek = Scrubber([...new Set(foliage2023.map((d) => d.week))], {
+  autoplay: false,
+  delay: 300
+})
+```
+
+```{ojs}
+conusFoliage = Plot.plot({
+  projection: "albers-usa",
+  width,
+  color: {
+    legend: true,
+    domain: [
+      "No Change",
+      "Minimal",
+      "Patchy",
+      "Partial",
+      "Near Peak",
+      "Peak",
+      "Past Peak"
+    ],
+    range: [
+      "#8d3d28",
+      "#ae3130",
+      "#dc4d33",
+      "#e89150",
+      "#f6ce6f",
+      "#fbf6bb",
+      "#8ba780"
+    ],
+    label: "Foliage Levels",
+    reverse: true
+  },
+  marks: [
+    Plot.geo(counties48, {
+      stroke: "white",
+      strokeWidth: 1 / 4,
+      strokeOpacity: 1 / 2,
+      title: (d) => d.id,
+      fill: (d) => {
+        const cty = f23.get(d.id);
+        const val = cty === undefined ? "No Change" : cty.value;
+        console.log(val);
+        return val;
+      }
+    }),
+    Plot.geo(states48, {
+      stroke: "white",
+      strokeWidth: 3 / 2,
+      strokeOpacity: 1 / 2
+    })
+  ]
+})
+```
+
+```{ojs}
+f23 = new Map(
+  foliage2023.filter((d) => d.week == foliageWeek).map((e) => [e.id, e])
+)
+```
+
+```{ojs}
+foliage2023 = FileAttachment("foliage-2023.json").json()
+```
+
+```{ojs}
+counties48 = ({
+  type: "FeatureCollection",
+  features: counties.features.filter(
+    (d) => !["15", "02"].includes(d.id.substring(0, 2))
+  )
+})
+
+states48 = ({
+  type: "FeatureCollection",
+  features: states.features.filter((d) => !["15", "02"].includes(d.id))
+})
+```
+
+```{ojs}
+counties = topojson.feature(us, us.objects.counties)
+states = topojson.feature(us, us.objects.states)
+```
+
+```{ojs}
+import {us} from "@observablehq/us-geographic-data"
+import { Scrubber } from "@mbostock/scrubber"
+```
