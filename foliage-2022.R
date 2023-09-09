@@ -48,6 +48,8 @@ counties_sf |>
   left_join(foliage, "id") |> 
   filter(!is.na(rate1)) -> foliage_sf
 
+  foliage_sf
+
 # now, we do some munging so we have better labels and so we can
 # iterate over the weeks
 foliage_sf |> 
