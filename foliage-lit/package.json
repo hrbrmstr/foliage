@@ -16,6 +16,6 @@
     "us-atlas": "^3.0.1"
   },
   "devDependencies": {
-    "vite": "^4.4.5"
+    "vite": "^4.4.12"
   }
 }
